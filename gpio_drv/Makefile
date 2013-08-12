@@ -1,14 +1,13 @@
-# Makefile for the MTUNL GPIO driver 
-# Please modify here or set environments.
+# Makefile for the GPIO driver 
 # KERNELDIR should be pointed to the build directory of your kernel.
-# 
+
 DEBUG ?= y
-KERNELDIR ?= /home/pursuitxh/Perforce/indctlp4_1676/liwm_marvell/avb/kernel/linux-2.6.30.10
+KERNELDIR ?= /home/pursuitxh/kernel/linux-2.6.30.10
 
 KBUILD_V:ERBOSE:=1
 
-mtunl_gpio-objs   := gpio.o 
-obj-m += mtunl_gpio.o
+gpio-objs   := gpio.o 
+obj-m += gpio.o
 
 ifeq ($(DEBUG),y)
 	EXTRA_CFLAGS += -DDEBUG
@@ -22,14 +21,6 @@ check:
 
 %.x:%.c
 	$(CC) -o $@ $< $(EXTRA_CFLAGS)
-
-.PHONY: cscope
-cscope:
-	cscope -b -k -R
-
-.PHONY: romfs
-romfs:
-	$(FS_INSTALL) mtunl_gpio.ko /lib/modules/mtunl_gpio/mtunl_gpio.ko
 
 .PHONY: clean
 clean:
